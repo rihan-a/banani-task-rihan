@@ -21,6 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+           <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+                />
       <body
         className={`${inter.variable} antialiased`}
       >
