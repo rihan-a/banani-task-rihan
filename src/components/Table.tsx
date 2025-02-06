@@ -1,24 +1,44 @@
 "use client";
+import { useState } from "react";
 
-export default function Table() {
-  
+export default function Table({ data }: { data: any }) {
+  if (!data || !data.headers || !data.rows) {
+    return <p className="text-gray-500 text-sm">No data available. Enter a prompt to generate a table.</p>;
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center relative">
-    <h2 className="absolute top-[-25px] left-[0px] text-[12px] font-inter font-medium leading-5 text-left text-[#888788]">
-        New table
-    </h2>
-    <div className="w-full max-w-9/10 mx-auto overflow-x-auto rounded-[10px] "> 
-    <table className="w-full text-black font-inter text-sm font-medium leading-6 border-separate border-spacing-y-[2px]"> 
-        <thead>
+    <div className="flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-4xl mx-auto overflow-x-auto rounded-lg shadow-lg">
+        <table className="w-full border-collapse text-black font-inter text-sm font-medium leading-6">
+          <thead className="bg-gray-100">
             <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-                <th>Column 3</th>
+              {data.headers.map((header: string, index: number) => (
+                <th key={index} className="p-3 text-left text-sm font-medium text-gray-700 border-b">
+                  {header}
+                </th>
+              ))}
             </tr>
-        </thead>
+          </thead>
+          <tbody>
+            {data.rows.map((row: any, rowIndex: number) => (
+              <tr key={rowIndex} className="hover:bg-gray-50 transition border-b">
+                {Object.keys(row).map((key, colIndex) => (
+                  <td key={colIndex} className="p-3 text-sm text-gray-700">
+                    {typeof row[key] === "object" && row[key].icon ? (
+                      <div className="flex items-center">
+                        <span className="material-symbols-outlined text-gray-600 mr-2">{row[key].icon}</span>
+                        {row[key].value}
+                      </div>
+                    ) : (
+                      row[key]
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
         </table>
+      </div>
     </div>
-    </div>
-        
   );
 }
