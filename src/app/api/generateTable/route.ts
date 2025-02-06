@@ -9,18 +9,44 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
     }
 
+    const schema = {
+        headers: ["Column 1", "Column 2", "Column 3"],
+        rows: [
+          {
+            "Column 1": { icon: "example_icon", value: "Example Value" },
+            "Column 2": "Example Text",
+            "Column 3": "Another Example",
+          },
+        ],
+      };
+
     const response = await openai.chat.completions.create({
       model: "gpt-4-turbo-preview",
       messages: [
         {
             role: "system",
-            content: `You are an AI that generates structured JSON tables based on user prompts.
+            content: `You are an AI that generates structured JSON tables based on user prompts. The response **must** strictly follow this JSON schema:
+            
+            \`\`\`json
+            ${JSON.stringify(schema, null, 2)}
+            \`\`\`
+            
+            **Formatting Rules:**
+            - **headers**: An array of column names.
+            - **rows**: An array of objects where each key corresponds to a column from "headers".
+            - **Only the first column** should include an icon in the format: \`{"icon": "icon_name", "value": "actual_value"}\`.
+            - **All other columns** should only return string values.
+            - Do **not** include an icon in any column except the first one.
+            - The first column should always be the row title.
             - The data should be relevant to the user's prompt.`,
           },
         {
           role: "user",
           content: `Generate a table based on this prompt: ${prompt}. Return only JSON, no explanations, Each row should have a relevant 'icon' to it's value  added inside the first column, which represents a relevant Google Material Symbol.`,
         },
+
+
+
 
       ],
       response_format: { type: "json_object" },
