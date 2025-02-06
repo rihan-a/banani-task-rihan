@@ -1,6 +1,7 @@
 "use server";
+import { TableData } from "@/types/table";
 
-export async function generateTable(prompt: string) {
+export async function generateTable(prompt: string): Promise<TableData | null> {
   try {
     const response = await fetch("http://localhost:3000/api/generateTable", {
       method: "POST",
