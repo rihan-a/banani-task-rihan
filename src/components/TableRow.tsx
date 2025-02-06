@@ -13,9 +13,9 @@ export default function TableRow({ row, headers }: TableRowProps) {
     };
 
     return (
-        <tr className="hover:bg-gray-50 transition border-b bg-white">
+        <tr className="hover:bg-gray-50 transition border-b bg-white h-[56px]">
             {headers.map((header, colIndex) => (
-                <td key={colIndex} className="p-3 text-sm text-gray-700">
+                <td key={colIndex} className={`p-3 text-sm text-gray-700 ${colIndex === 0 ? 'font-medium' : 'font-normal'}`}>
                     {isIconItem(row[header]) ? (
                         <div className="flex items-center">
                             <span className="material-symbols-outlined text-gray-600 mr-2">
