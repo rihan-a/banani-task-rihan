@@ -1,5 +1,5 @@
-import PromptForm from "./components/PromptForm";
-import Table from "./components/Table";
+import PromptForm from "../components/PromptForm";
+import Table from "../components/Table";
 
 export default function Home() {
   return (
