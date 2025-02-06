@@ -1,19 +1,43 @@
-export default function PromptForm() {
+"use client";
+import { useState, useTransition } from "react";
+import { generateTable } from "@/lib/actions"; // Import server action
+
+export default function PromptForm({ onGenerate }: { onGenerate: (data: any) => void }) {
+  const [prompt, setPrompt] = useState("");
+  const [loading, startTransition] = useTransition(); // For async actions
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!prompt.trim()) return;
+
+    startTransition(async () => {
+      const data = await generateTable(prompt);
+      if (data) onGenerate(data);
+    });
+  };
+
   return (
-    <form className=" h-[230px] w-[280px] bg-white rounded-tl-[12px] rounded-tr-[28px] rounded-br-[28px] rounded-bl-[28px] shadow-[0_16px_28px_0_rgba(0,0,0,0.08)] relative">
-    <textarea
-        className="w-[240px] min-h-[48px] opacity-90 font-inter font-normal text-sm text-[#888788] leading-6 mt-[20px] ml-[20px] outline-none resize-none"
-        placeholder="What kind of table do you want to generate ?"
-    />
-    <button
+    <form 
+      onSubmit={handleSubmit} 
+      className="h-[230px] w-[280px] bg-white rounded-tl-[12px] rounded-tr-[28px] rounded-br-[28px] rounded-bl-[28px] shadow-lg relative"
+    >
+      <textarea
+        className="w-[240px] h-[120px] min-h-[48px]  font-inter text-sm text-gray-700 leading-6 mt-5 ml-5 outline-none resize-none"
+        placeholder="What kind of table do you want to generate?"
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+      />
+      <button
         type="submit"
-        className="rounded-full  w-10 h-10 bg-[#A6A6A6] flex items-center justify-center absolute top-[178px] left-[228px] hover:bg-[#1784EF] transition">
-        <span className="material-symbols-outlined text-white ">
-            arrow_upward_alt
-        </span>
-    </button>
-</form>
-)
+        className="rounded-full w-10 h-10 bg-gray-500 flex items-center justify-center absolute top-[178px] left-[228px] hover:bg-blue-500 transition"
+        disabled={loading}
+      >
+        {loading ? (
+          <span className="animate-spin material-symbols-outlined text-white">autorenew</span>
+        ) : (
+          <span className="material-symbols-outlined text-white">arrow_upward_alt</span>
+        )}
+      </button>
+    </form>
+  );
 }
-
-
