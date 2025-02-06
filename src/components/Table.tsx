@@ -1,7 +1,12 @@
 "use client";
-import { useState } from "react";
+import TableRow from "./TableRow";
+import { TableData } from "@/types/table";
 
-export default function Table({ data }: { data: any }) {
+interface TableProps {
+    data: TableData | null;
+}
+
+export default function Table({ data }: TableProps) {
     if (!data || !data.headers || !data.rows) {
         return <p className="text-gray-500 text-sm">No data available. Enter a prompt to generate a table.</p>;
     }
@@ -17,38 +22,14 @@ export default function Table({ data }: { data: any }) {
                                     {header}
                                 </th>
                             ))}
-                             <th className="p-3 text-left text-sm font-medium text-gray-700 border-b">
-                                   Actions
-                                </th>
+                            <th className="p-3 text-left text-sm font-medium text-gray-700 border-b">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.rows.map((row: any, rowIndex: number) => (
-                            <tr key={rowIndex} className="hover:bg-gray-50 transition border-b bg-white">
-                                {Object.keys(row).map((key, colIndex) => (
-                                    <td key={colIndex} className="p-3 text-sm text-gray-700">
-                                        {typeof row[key] === "object" && row[key].icon ? (
-                                            <div className="flex items-center">
-                                                <span className="material-symbols-outlined text-gray-600 mr-2">{row[key].icon}</span>
-                                                {row[key].value}
-                                            </div>
-                                        ) : (
-                                            row[key]
-                                        )}
-                                    </td>
-                                ))}
-
-                                <td className="p-3">
-                                    <div className="flex">
-                                        <span className="material-symbols-outlined">
-                                            bookmark
-                                        </span>
-                                        <span className="material-symbols-outlined pl-[10px]">
-                                            more_horiz
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
+                        {data.rows.map((row, index) => (
+                            <TableRow key={index} row={row} headers={data.headers} />
                         ))}
                     </tbody>
                 </table>
