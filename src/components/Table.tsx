@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
-import { TableData } from "@/types/table";
+import { TableData, TableRowData } from "@/types/table";
 
 interface TableProps {
     data: TableData | null;
@@ -19,7 +19,7 @@ export default function Table({ data, error }: TableProps) {
         }
     }, [data]);
 
-    const handleDeleteRow = (rowToDelete: any) => {
+    const handleDeleteRow = (rowToDelete: TableRowData) => {
         if (!tableData || !tableData.rows) return;
         
         const updatedRows = tableData.rows.filter(row => row !== rowToDelete);
