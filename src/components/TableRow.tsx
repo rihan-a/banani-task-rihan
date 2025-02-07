@@ -1,13 +1,13 @@
-"use client"
+"use client";
 import { TableRowData, IconItem } from "@/types/table";
 
 interface TableRowProps {
     row: TableRowData;
     headers: string[];
+    onDelete: (row: TableRowData) => void;
 }
 
-export default function TableRow({ row, headers }: TableRowProps) {
-    // Helper function to type check if a value is an IconItem
+export default function TableRow({ row, headers, onDelete }: TableRowProps) {
     const isIconItem = (value: any): value is IconItem => {
         return typeof value === 'object' && value !== null && 'icon' in value && 'value' in value;
     };
@@ -30,14 +30,17 @@ export default function TableRow({ row, headers }: TableRowProps) {
             ))}
             <td className="min-w-[48px] pr-[16px]">
                 <div className="flex">
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined cursor-pointer hover:text-[var(--blue)]">
                         bookmark
                     </span>
-                    <span className="material-symbols-outlined pl-[8px]">
+                    <span 
+                        className="material-symbols-outlined pl-[8px] cursor-pointer hover:text-[var(--blue)]" 
+                        onClick={() => onDelete(row)}
+                    >
                         delete
                     </span>
                 </div>
             </td>
         </tr>
     );
-}   
+}
