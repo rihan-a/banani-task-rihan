@@ -17,7 +17,7 @@ export default function Table({ data, error }: TableProps) {
         if (data) {
             setTableData(data);
         }
-    }, [data]); // Ensure state updates when `data` changes
+    }, [data]);
 
     const handleDeleteRow = (rowToDelete: any) => {
         if (!tableData || !tableData.rows) return;
@@ -28,20 +28,20 @@ export default function Table({ data, error }: TableProps) {
 
     if (!tableData || !tableData.headers || tableData.rows.length === 0) {
         return (
-            <div className="flex items-center justify-center text-gray-500 text-sm h-[56px] w-[640px] bg-white">
-                {error ? <span className="text-red-500">{error}</span> : "No data available"}
+            <div className="w-[350px] sm:w-[400px] md:w-[640px] lg:w-[640px]  flex items-center justify-center text-gray-500 text-sm h-[56px] bg-white">
+                {error ? <span className="text-red-500  p-3  ">{error}</span> : ""}
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col items-center justify-center p-6">
+        <div className="flex flex-col items-center justify-center p-4 sm:p-6 w-full mt-[100px]">
             <h2 className="w-full mb-2 text-[12px] font-medium text-gray-500">
                 New table
             </h2>
-            <div className="w-full min-w-[640px] max-w-[900px] overflow-hidden rounded-lg shadow-lg">
-                <div className="max-h-[336px] overflow-y-auto bg-white">
-                    <table className="table-auto border-collapse text-black font-inter text-sm font-medium leading-6 w-full">
+            <div className="w-full overflow-x-auto rounded-lg shadow-lg">
+                <div className="max-h-[336px] bg-white">
+                    <table className="table-auto border-collapse text-black font-inter text-sm font-medium leading-6 w-[96vw] sm:w-[200px] md:w-[640px] lg:w-[640px]">
                         <TableHeader headers={tableData.headers} />
                         <TableBody 
                             rows={tableData.rows} 
