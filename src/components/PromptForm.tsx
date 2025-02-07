@@ -46,26 +46,22 @@ export default function PromptForm({ onGenerate }: PromptFormProps) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="h-[230px] w-[280px] bg-white rounded-tl-[12px] rounded-tr-[28px] rounded-br-[28px] rounded-bl-[28px] shadow-lg relative"
-        >
+            className="h-[230px] w-[96vw] md:w-[280px] bg-white rounded-tl-[12px] rounded-tr-[28px] relative rounded-br-[28px] rounded-bl-[28px] shadow-lg ">
             <textarea
                 className={`w-[240px] h-[120px] min-h-[48px] font-inter text-sm leading-6 mt-5 ml-5 outline-none resize-none ${
-                    prompt ? "text-black" : "text-gray-700"
-                }`}
+                    prompt ? "text-black" : "text-gray-700"}`}
                 placeholder="What kind of table do you want to generate?"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                onKeyDown={handleKeyDown} // add keydown handler
-            />
+                onKeyDown={handleKeyDown} />
             <button
                 type="submit"
-                className={`rounded-full w-10 h-10 flex items-center justify-center absolute top-[178px] left-[228px] transition ${
+                className={`rounded-full w-10 h-10 flex items-center justify-center absolute  bottom-[12px] left-[12px] md:top-[178px] md:left-[228px] transition ${
                     prompt.trim()
                         ? "bg-[#1784EF] hover:bg-[#176def]"
                         : "bg-[#A6A6A6] cursor-not-allowed"
                 }`}
-                disabled={loading || !prompt.trim()}
-            >
+                disabled={loading || !prompt.trim()}>
                 {loading ? (
                     <span className="animate-spin material-symbols-outlined text-white">
                         autorenew
