@@ -1,44 +1,39 @@
 "use client";
-import TableRow from "./TableRow";
+
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
 import { TableData } from "@/types/table";
 
 interface TableProps {
     data: TableData | null;
+    error: string | null;
 }
 
-export default function Table({ data }: TableProps) {
-    if (!data || !data.headers || !data.rows) {
-        return <p className="text-gray-500 text-sm">No data available. Enter a prompt to generate a table.</p>;
-    }
-
+export default function Table({ data, error }: TableProps) {
     return (
-        <div className="flex flex-col items-center justify-center p-6 mt-[130px]">
-             <h2 className="absolute top-[-25px] left-[0px] text-[12px] font-inter font-medium leading-5 text-left text-[#888788]">
+        <div className="flex flex-col items-center justify-center p-6">
+            <h2 className="w-full mb-2 text-[12px] font-medium text-gray-500">
                 New table
             </h2>
-            <div className="w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-lg">
-                <div className="max-h-[336px] overflow-y-auto">
-                    <table className="w-full border-collapse text-black font-inter text-sm font-medium leading-6">
-                        <thead className="bg-white sticky top-0">
-                            <tr className="h-[56px]">
-                                {data.headers.map((header: string, index: number) => (
-                                    <th key={index} className={`p-3 text-left text-sm ${index === 0 ? 'font-medium' : 'font-normal'} text-gray-700 border-b bg-white`}>
-                                        {header}
-                                    </th>
-                                ))}
-                                <th className="p-3 text-left text-sm font-normal text-gray-700 border-b bg-white">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.rows.map((row, index) => (
-                                <TableRow key={index} row={row} headers={data.headers} />
-                            ))}
-                        </tbody>
-                    </table>
+
+            {(!data || !data.headers || !data.rows) ? (
+                <div className="flex items-center justify-center text-gray-500 text-sm h-[56px] w-[640px] bg-white">
+                    {error && (
+                        <span className="text-red-500">
+                            {error}
+                        </span>
+                    )}
                 </div>
-            </div>
+            ) : (
+                <div className="w-full min-w-[640px] max-w-[900px] overflow-hidden rounded-lg shadow-lg">
+                    <div className="max-h-[336px] overflow-y-auto bg-white">
+                        <table className="table-auto border-collapse text-black font-inter text-sm font-medium leading-6 w-full">
+                            <TableHeader headers={data.headers} />
+                            <TableBody rows={data.rows} headers={data.headers} />
+                        </table>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
