@@ -1,9 +1,10 @@
 import TableRow from "./TableRow";
+import { TableRowData } from "@/types/table";
 
 interface TableBodyProps {
-    rows: any[];
+    rows: TableRowData[];
     headers: string[];
-    onDelete: (row: any) => void;
+    onDelete: (row: TableRowData) => void;
 }
 
 export default function TableBody({ rows, headers, onDelete }: TableBodyProps) {
