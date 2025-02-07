@@ -19,8 +19,8 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="h-screen flex items-center justify-center relative">
-            <div className="absolute top-[12px] left-[12px]">
+        <div className="flex items-center justify-center h-screen w-screen relative">
+            <div className="absolute top-[12px] md:left-[12px]">
                 <PromptForm onGenerate={handleGenerate} />
             </div>
 
