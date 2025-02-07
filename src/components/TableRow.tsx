@@ -8,7 +8,7 @@ interface TableRowProps {
 }
 
 export default function TableRow({ row, headers, onDelete }: TableRowProps) {
-    const isIconItem = (value: any): value is IconItem => {
+    const isIconItem = (value: unknown): value is IconItem => {
         return typeof value === 'object' && value !== null && 'icon' in value && 'value' in value;
     };
 
