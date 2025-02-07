@@ -4,7 +4,7 @@ import { generateTable } from "@/lib/actions"; // Import server action
 import { TableData } from "@/types/table";
 
 interface PromptFormProps {
-    onGenerate: (data: TableData | null) => void;
+    onGenerate: (data: TableData | { error: string }) => void;
 }
 
 export default function PromptForm({ onGenerate }: PromptFormProps) {
@@ -19,17 +19,29 @@ export default function PromptForm({ onGenerate }: PromptFormProps) {
             try {
                 const data = await generateTable(prompt);
 
-                if (data?.headers?.length && data?.rows?.length) {
-                    console.log("data here in promptForm", data); // for debugging
-                    onGenerate(data); // reurn data
-                    setPrompt(""); // Clear the input
+                if ('error' in data) {
+                    onGenerate({ error: data.error || "Failed to generate table" });
+                } else {
+                    console.log("data here in promptForm", data);
+                    onGenerate(data);
+                    setPrompt("");
                 }
-            } catch (error) {
-                console.log("Error generating table:", error); // for debugging
-                onGenerate(null);
+            } catch (error: any) {
+                console.log("Error generating table:", error);
+                onGenerate({ error: error?.message || "Failed to generate table, please write a more specific prompt" });
+                setPrompt("");
             }
         });
     };
+   // handle "Enter" key press in the textarea
+   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); // prevent new line
+        handleSubmit(e); // trigger form submission
+    }
+};
+
+
 
     return (
         <form
@@ -43,6 +55,7 @@ export default function PromptForm({ onGenerate }: PromptFormProps) {
                 placeholder="What kind of table do you want to generate?"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
+                onKeyDown={handleKeyDown} // add keydown handler
             />
             <button
                 type="submit"
