@@ -25,11 +25,7 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center justify-center">
-                {errorMessage ? (
-                    <div className="text-red-500">{errorMessage}</div>
-                ) : (
-                    <Table data={tableData} />
-                )}
+                <Table data={tableData} error={errorMessage} />
             </div>
         </div>
     );
