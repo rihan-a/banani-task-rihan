@@ -26,9 +26,11 @@ export default function PromptForm({ onGenerate }: PromptFormProps) {
                     onGenerate(data);
                     setPrompt("");
                 }
-            } catch (error: any) {
-                console.log("Error generating table:", error);
-                onGenerate({ error: error?.message || "Failed to generate table, please write a more specific prompt" });
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.log("Error generating table:", error);
+                    onGenerate({ error: error.message || "Failed to generate table, please write a more specific prompt" });
+                }
                 setPrompt("");
             }
         });
