@@ -14,7 +14,7 @@ export async function generateTable(
         });
 
         if (!response.ok)
-            throw new Error(`Failed to generate table: ${response.statusText}`);
+            throw new Error(`Failed to generate table: Please write a more specific prompt`);
 
         const data = await response.json();
         if (!data.headers || !data.rows) {
