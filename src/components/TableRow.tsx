@@ -1,21 +1,18 @@
 "use client";
-import { TableRowData, IconItem } from "@/types/table";
+import { TableComponentsProps, TableRowData, IconItem } from "@/types/table";
 import { useState } from 'react';
 
-interface TableRowProps {
+interface TableRowProps extends TableComponentsProps {
     row: TableRowData;
-    headers: string[];
-    onDelete: (row: TableRowData) => void;
 }
 
-export default function TableRow({ row, headers, onDelete }: TableRowProps) {
+export default function TableRow({ row, headers, onDelete, actions }: TableRowProps) {
     const isIconItem = (value: unknown): value is IconItem => {
         return typeof value === 'object' && value !== null && 'icon' in value && 'value' in value;
     };
 
-
     const [isBookmarked, setIsBookmarked] = useState(false);
-    // toggle bookmark state
+
     const toggleBookmark = () => {
         setIsBookmarked(!isBookmarked);
     };
@@ -36,22 +33,24 @@ export default function TableRow({ row, headers, onDelete }: TableRowProps) {
                     )}
                 </td>
             ))}
-            <td className="min-w-[48px] pr-[16px]">
-                <div className="flex">
-                    <span 
-                        className={`material-symbols-outlined cursor-pointer ${isBookmarked ? 'text-[var(--blue)]' : 'hover:text-[var(--blue)]'}`}
-                        onClick={toggleBookmark}
-                    >
-                        {isBookmarked ? 'bookmark_added' : 'bookmark'}
-                    </span>
-                    <span 
-                        className="material-symbols-outlined pl-[8px] cursor-pointer hover:text-[var(--blue)]" 
-                        onClick={() => onDelete(row)}
-                    >
-                        delete
-                    </span>
-                </div>
-            </td>
+            {actions && (
+                <td className="min-w-[48px] pr-[16px]">
+                    <div className="flex">
+                        <span 
+                            className={`material-symbols-outlined cursor-pointer ${isBookmarked ? 'text-[var(--blue)]' : 'hover:text-[var(--blue)]'}`}
+                            onClick={toggleBookmark}
+                        >
+                            {isBookmarked ? 'bookmark_added' : 'bookmark'}
+                        </span>
+                        <span 
+                            className="material-symbols-outlined pl-[8px] cursor-pointer hover:text-[var(--blue)]" 
+                            onClick={() => onDelete && onDelete(row)}
+                        >
+                            delete
+                        </span>
+                    </div>
+                </td>
+            )}
         </tr>
     );
 }
