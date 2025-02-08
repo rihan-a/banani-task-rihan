@@ -1,9 +1,6 @@
-interface TableHeaderProps {
-    headers: string[];
-    hasData: boolean;
-}
+import { TableComponentsProps } from "@/types/table";
 
-export default function TableHeader({ headers, hasData }: TableHeaderProps) {
+export default function TableHeader({ headers, hasData, actions }: TableComponentsProps) {
     return (
         <thead className="bg-white sticky top-0">
             <tr className="h-[56px]">
@@ -15,7 +12,7 @@ export default function TableHeader({ headers, hasData }: TableHeaderProps) {
                         {header}
                     </th>
                 ))}
-                {hasData && (
+                {hasData && actions && (
                     <th 
                         className="p-1 text-left text-sm font-normal text-gray-700 border-b bg-white w-[20px] md:min-w-[48px]">
                         Actions
