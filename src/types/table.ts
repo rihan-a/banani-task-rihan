@@ -1,6 +1,8 @@
 export interface TableData {
+    tableName: string;
     headers: string[];
     rows: TableRowData[];
+    actions: boolean;
 }
 
 export interface TableRowData {
