@@ -15,11 +15,11 @@ interface TableContainerProps {
 export default function TableContainer({ data, loading, error }: TableContainerProps) {
     const [tableData, setTableData] = useState<TableData | null>(null);
 
-    // sync state with data when it changes
+
     useEffect(() => {
         setTableData(data);
     }, [data]);
-    // handle delete row and update table data state
+
     const handleDeleteRow = (rowToDelete: TableRowData) => {
         if (!tableData || !tableData.rows) return;
         setTableData(prevData => ({
@@ -30,7 +30,7 @@ export default function TableContainer({ data, loading, error }: TableContainerP
 
     return (
         <div className="w-full overflow-x-auto rounded-[4px] shadow-lg">
-            <div className="max-h-[300px] bg-white min-h-[56px] w-[96vw] sm:w-[200px] md:w-[640px] lg:w-[740px]">
+            <div className="max-h-[300px] bg-white min-h-[56px] w-[95vw] sm:w-[200px] md:w-[640px] lg:w-[740px]">
                 {/* error handling here */}
                 {error && !loading && (
                     <div className="text-red-500 text-center p-3">{error}</div>
@@ -52,10 +52,12 @@ export default function TableContainer({ data, loading, error }: TableContainerP
                                     <TableHeader 
                                         headers={tableData.headers} 
                                         hasData={tableData.rows.length > 0} 
+                                        actions={tableData.actions}
                                     />
                                     <TableBody 
                                         rows={tableData.rows} 
                                         headers={tableData.headers} 
+                                        actions={tableData.actions}
                                         onDelete={handleDeleteRow} 
                                     />
                                 </table>
