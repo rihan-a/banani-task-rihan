@@ -61,7 +61,7 @@ export default function PromptForm({ onGenerate, setLoading }: PromptFormProps) 
                 onKeyDown={handleKeyDown} />
             <button
                 type="submit"
-                className={`rounded-full w-10 h-10 flex items-center justify-center absolute  bottom-[12px] left-[12px] md:top-[178px] md:left-[228px] transition ${
+                className={`rounded-full w-10 h-10 flex items-center justify-center absolute  bottom-[12px] right-[12px] md:top-[178px] md:left-[228px] transition ${
                     prompt.trim()
                         ? "bg-[#1784EF] hover:bg-[#176def]"
                         : "bg-[#A6A6A6] cursor-not-allowed"
