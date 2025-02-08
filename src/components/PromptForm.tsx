@@ -5,15 +5,18 @@ import { TableData } from "@/types/table";
 
 interface PromptFormProps {
     onGenerate: (data: TableData | { error: string }) => void;
+    setLoading: (loading: boolean) => void;
 }
 
-export default function PromptForm({ onGenerate }: PromptFormProps) {
+export default function PromptForm({ onGenerate, setLoading }: PromptFormProps) {
     const [prompt, setPrompt] = useState("");
-    const [loading, startTransition] = useTransition(); // For async actions
+    const [loading, startTransition] = useTransition();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!prompt.trim()) return;
+
+        setLoading(true);
 
         startTransition(async () => {
             try {
