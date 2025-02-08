@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { openai } from "@/lib/openai";
-import { a } from "framer-motion/client";
 
 export async function POST(req: Request) {
     try {
