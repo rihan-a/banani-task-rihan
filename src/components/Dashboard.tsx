@@ -22,16 +22,21 @@ export default function Dashboard() {
 
     return (
         <div 
-            className="flex items-center justify-center h-screen w-screen relative"
-            style={{ backgroundImage: 'url("https://rihanbucket.s3.us-east-1.amazonaws.com/AI/background-banani-task.webp")', backgroundSize: 'cover', backgroundPosition: 'center' }}
-        >
-            <div className="absolute top-[12px] md:left-[12px]">
-                <PromptForm onGenerate={handleGenerate} setLoading={setLoading} />
-            </div>
-
-            <div className="flex items-center justify-center">
-                <Table data={tableData} error={errorMessage || undefined} loading={loading} />
-            </div>
+        className="flex flex-col items-center justify-start h-screen w-screen"
+        style={{ 
+            backgroundImage: 'url("https://rihanbucket.s3.us-east-1.amazonaws.com/AI/background-banani-task.webp")', 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center' 
+        }}
+    >
+        <div className="self-start ml-[12px] mt-[12px]">
+            <PromptForm onGenerate={handleGenerate} setLoading={setLoading} />
         </div>
+    
+        <div className="flex items-center justify-center">
+            <Table data={tableData} error={errorMessage || undefined} loading={loading} />
+        </div>
+    </div>
+    
     );
 }
