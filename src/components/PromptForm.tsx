@@ -40,11 +40,11 @@ export default function PromptForm({ onGenerate, setLoading }: PromptFormProps) 
             }
         });
     };
-   // handle "Enter" key press in the textarea
+
    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault(); // prevent new line
-        handleSubmit(e); // trigger form submission
+        e.preventDefault(); 
+        handleSubmit(e); 
     }
 };
 
@@ -53,7 +53,7 @@ export default function PromptForm({ onGenerate, setLoading }: PromptFormProps) 
     return (
         <form
             onSubmit={handleSubmit}
-            className="h-[230px] w-[96vw] md:w-[280px] bg-white rounded-tl-[12px] rounded-tr-[28px] relative rounded-br-[28px] rounded-bl-[28px] shadow-lg ">
+            className="h-[230px] w-[95vw] md:w-[280px] bg-white rounded-tl-[12px] rounded-tr-[28px] relative rounded-br-[28px] rounded-bl-[28px] shadow-lg ">
             <textarea
                 className={`w-[240px] h-[120px] min-h-[48px] font-inter text-sm leading-6 mt-5 ml-5 outline-none resize-none ${
                     prompt ? "text-black" : "text-gray-700"}`}
