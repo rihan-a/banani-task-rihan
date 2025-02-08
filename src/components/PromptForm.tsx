@@ -24,6 +24,7 @@ export default function PromptForm({ onGenerate, setLoading }: PromptFormProps) 
 
                 if ('error' in data) {
                     onGenerate({ error: data.error || "Failed to generate table" });
+                    setPrompt("");
                 } else {
                     console.log("data here in promptForm", data);
                     onGenerate(data);
@@ -33,6 +34,7 @@ export default function PromptForm({ onGenerate, setLoading }: PromptFormProps) 
                 if (error instanceof Error) {
                     console.log("Error generating table:", error);
                     onGenerate({ error: error.message || "Failed to generate table, please write a more specific prompt" });
+                    setPrompt("");
                 }
                 setPrompt("");
             }
