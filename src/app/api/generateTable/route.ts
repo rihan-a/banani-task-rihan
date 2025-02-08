@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { openai } from "@/lib/openai";
+import { a } from "framer-motion/client";
 
 export async function POST(req: Request) {
     try {
@@ -13,6 +14,7 @@ export async function POST(req: Request) {
         }
 
         const schema = {
+            tableName: "Table Name",
             headers: ["Column 1", "Column 2", "Column 3"],
             rows: [
                 {
@@ -24,6 +26,7 @@ export async function POST(req: Request) {
                     "Column 3": "Another Example",
                 },
             ],
+            actions: false,
         };
 
         const response = await openai.chat.completions.create({
@@ -50,6 +53,8 @@ export async function POST(req: Request) {
                     - **All other columns** should only return string values.
                     - Do **not** include an icon in any column except the first one.
                     - The first column should always be the row title.
+                    - **actions**: A boolean value, false by default, only include if the user's prompt includes the words "actions" or "edit" or "delete" or "save".
+                    - Create a table name that is relevant to the user's prompt.
                     - The data should be relevant to the user's prompt.`,
                 },
                 {
