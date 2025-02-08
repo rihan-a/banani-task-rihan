@@ -1,17 +1,15 @@
 import TableRow from "./TableRow";
-import { TableRowData } from "@/types/table";
+import { TableComponentsProps, TableRowData } from "@/types/table";
 
-interface TableBodyProps {
+interface TableBodyProps extends TableComponentsProps {
     rows: TableRowData[];
-    headers: string[];
-    onDelete: (row: TableRowData) => void;
 }
 
-export default function TableBody({ rows, headers, onDelete }: TableBodyProps) {
+export default function TableBody({ rows, headers, onDelete, actions }: TableBodyProps) {
     return (
         <tbody>
             {rows.map((row, index) => (
-                <TableRow key={index} row={row} headers={headers} onDelete={onDelete} />
+                <TableRow key={index} row={row} headers={headers} onDelete={onDelete} actions={actions} />
             ))}
         </tbody>
     );
