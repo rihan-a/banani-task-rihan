@@ -4,10 +4,13 @@ It's a simple app that uses openAi LLM to generate a beautiful table filled with
 
 ## Tech Stack
 
-- **Next.js**: A React-based framework that enables server-side rendering and static site generation, providing a robust foundation for building web applications.
-- **React**: A JavaScript library for building user interfaces, allowing for the creation of reusable UI components.
-- **Vercel**: A cloud platform for static sites and Serverless Functions that enables developers to host their Next.js applications with ease.
-- **Geist UI**: A modern and minimalistic UI library that enhances the visual appeal of the application.
+- **Next.js**
+- **React**
+- **TypeScript**
+- **OpenAI API - GPT-4 Turbo**
+- **Tailwind CSS**
+- **Framer Motion**
+- **Vercel**
 
 ## Getting Started
 
